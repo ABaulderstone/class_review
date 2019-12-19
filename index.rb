@@ -30,17 +30,31 @@
 #   },
 # ]
 
+class Student
+  attr_reader :name, :age, :id
+
+  def initialize(name, age, id)
+    @name = name
+    @age = age
+    @id = id
+  end
+end
+
 class Campus
+  attr_reader :students
+
   def initialize(location)
     @location = location
+    @students = []
   end
 
-  def location
-    @location
+  def add_student(name, age, id)
+    student = Student.new(name, age, id)
+    students.push(student)
   end
 
-  def location=(new_location)
-    @location = new_location
+  def find_student_by_id(id)
+    @students.select { |student| student.id == id }[0] || "No Matching record"
   end
 end
 
