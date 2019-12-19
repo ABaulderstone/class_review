@@ -162,3 +162,75 @@ class Campus
   end
 end
 ```
+
+Using the @ symbol indicates that the variable is scoped at the **instance** level.
+
+That means we can do something like this:
+
+```
+syd_campus = Campus.new("3/118 Walker St, North Sydney, 2060")
+
+melb_campus = Campus.new("8/120 Spencer Street, Melbourne Victoria")
+
+bris_campus = Campus.new("60 Gloucester St, Spring Hill QLD 4000")
+```
+
+Which means each **instance** of the class **Campus** has a different value of @location
+What if we wanted to check the location of a campus? We could do something like:
+
+```
+puts syd_campus.location
+```
+
+We get an error! Luckily Ruby errors are super useful and really informative so the **NoMethodError** tells us that there's an undefined method called location on this **instance** of this campus. So how do we add one?
+
+```
+class Campus
+  def initialize(location)
+    @location = location
+  end
+
+  def location
+    @location
+  end
+end
+```
+
+Awesome! Now we can do
+
+```
+puts syd_campus.location
+puts melb_campus.location
+puts bris_campus.location
+```
+
+Each **instance** of the class has a different location stored in the variable @location and we can access it with our **method** which _by convention_ is name the same as the variable
+
+But let's say our parent company trusted us a bit more and we moved up to Level 5 of this building? How would we change the location of the Sydney campus?
+
+```
+class Campus
+  def initialize(location)
+    @location = location
+  end
+
+  def location
+    @location
+  end
+
+  def location=(new_location)
+    @location = new_location
+  end
+end
+```
+
+So now we can call this method **location=** on the Sydney campus
+
+```
+syd_campus.location = "5/118 Walker St, North Sydney, 2060"
+puts syd_campus.location
+```
+
+We've succesfully updated the sydney location!
+
+---
