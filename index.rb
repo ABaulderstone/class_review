@@ -1,31 +1,24 @@
-sydney_campus_location = " 3/118 Walker St, North Sydney, 2060"
+class Student
+  attr_reader :id
+  attr_accessor :name, :age
 
-melbourne_campus_location = "8/120 Spencer Street, Melbourne Victoria"
+  def initialize(name, age, id)
+    @name = name
+    @age = age
+    @id = id
+  end
+end
 
-brisbane_campus_lcation = "60 Gloucester St, Spring Hill QLD 4000"
+class Campus
+  attr_reader :students
 
-sydney_students = [
-  {
-    name: "Alex",
-    age: 31,
-    id: "CAS011914",
-  },
-  {
-    name: "Luke",
-    age: 25,
-    id: "CAS011915",
-  },
-]
+  def initialize(location)
+    @location = location
+    @students = []
+  end
 
-melbstudents = [
-  {
-    name: "Drew",
-    age: 35,
-    id: "CAM011920",
-  },
-  {
-    name: "Sarah",
-    age: 20,
-    id: "CAM01125",
-  },
-]
+  def add_student(name, age, id)
+    student = Student.new(name, age, id)
+    students.push(student)
+  end
+end
