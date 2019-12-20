@@ -31,7 +31,8 @@
 # ]
 
 class Student
-  attr_reader :name, :age, :id
+  attr_reader :id
+  attr_accessor :name, :age
 
   def initialize(name, age, id)
     @name = name
@@ -42,6 +43,7 @@ end
 
 class Campus
   attr_reader :students
+  attr_accessor :location
 
   def initialize(location)
     @location = location
@@ -50,11 +52,14 @@ class Campus
 
   def add_student(name, age, id)
     student = Student.new(name, age, id)
-    students.push(student)
+    @students.push(student)
   end
 
   def find_student_by_id(id)
-    @students.select { |student| student.id == id }[0] || "No Matching record"
+    found_student = @students.select { |student| student.id == id }[0]
+    if !found_student
+      raise StandardError
+    end
   end
 end
 
@@ -68,3 +73,9 @@ puts bris_campus.location
 
 syd_campus.location = "5/118 Walker St, North Sydney, 2060"
 puts syd_campus.location
+
+begin
+  puts syd_campus.find_student_by_id("10")
+rescue
+  puts "Could not find student"
+end
